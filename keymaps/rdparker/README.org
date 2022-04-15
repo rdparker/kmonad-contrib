@@ -1,0 +1,9 @@
+* Installation
+
+In PowerShell run
+
+#+begin_src powershell
+./Create-Shortcut.ps1 hawkbit.kbd
+#+end_src
+
+to create a shortcut that starts KMonad in a hidden window with the =hawkbit.kbd= configuration.  Then manually copy it to =%ProgramData%\Microsoft\Windows\Start Menu\Programs\StartUp= and launch it.  The advantage of placing it in the =StartUp= directory is that it will launch when you log in.

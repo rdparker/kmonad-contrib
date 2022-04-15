@@ -1,0 +1,59 @@
+#| --------------------------------------------------------------------------
+
+                   KMonad: My MSI GE66 Raider Keyboard Layout
+
+  This file contains the `defsrc` configuration for an MSI GE66
+  Raider keyboard. Copy out the 'defsrc' layer to start your own
+  keyboard configuration. Copy out the `deflayer` template to
+  easily start a new layer with matching `transparent` buttons.
+
+(deflayer name
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
+  _    _    _    _    _    _    _    _    _    _    _    _    _         _   
+  _    _    _    _    _    _    _    _    _    _    _    _         _    _      
+  _    _    _              _              _    _    _    _    _    _    _   
+)
+
+  -------------------------------------------------------------------------- |#
+
+(defcfg
+  ;; ** For Linux **
+  ;; input  (device-file "/dev/input/by-id/usb-Matias_Ergo_Pro_Keyboard-event-kbd") ;; Change this line for your device
+  ;; output (uinput-sink "KMonad output")
+
+  ;; ** For Windows **
+  input  (low-level-hook)
+  output (send-event-sink)
+
+  ;; ** For MacOS **
+  ;; input  (iokit-name "my-keyboard-product-string")
+  ;; output (kext)
+
+  fallthrough true
+  allow-cmd false
+)
+
+(defalias
+  ce (tap-hold-next-release 500 esc lctl)
+  cr (tap-hold-next-release 500 ret rctl)
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc home
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \    pgup
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret       pgdn
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft      up   end    
+  lctl lmet lalt           spc            ralt nubs      rctl left down rght
+)
+
+(deflayer default
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
+  @ce  _    _    _    _    _    _    _    _    _    _    _    @cr       _   
+  _    _    _    _    _    _    _    _    _    _    _    _         _    _      
+  _    _    _              _              _    rmet      _    _    _    _   
+)
