@@ -36,8 +36,8 @@
 )
 
 (defalias
-  ce (tap-hold-next-release 500 esc lctl)
-  cr (tap-hold-next-release 500 ret rctl)
+  ec (tap-hold-next-release 500 esc lctl)
+  rc (tap-hold-next-release 500 ret rctl)
 )
 
 (defsrc
@@ -53,7 +53,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
-  @ce  _    _    _    _    _    _    _    _    _    _    _    @cr       _   
+  @ec  _    _    _    _    _    _    _    _    _    _    _    @rc       _
   _    _    _    _    _    _    _    _    _    _    _    _         _    _      
   _    _    _              _              _    rmet      _    _    _    _   
 )

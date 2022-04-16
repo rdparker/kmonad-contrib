@@ -1,0 +1,23 @@
+IDeathByte binds the actual keypad numbers to a layer so that alt-codes can be entered on a TKL (Ten Key Less) keyboard.
+
+MacGyver83 added, but commented out, a Greek layer in his [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/neo-de.kbd::(deflayer level5][neo-de.kbd]].  In his own "vou" layout he [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/vou.kbd::@lv3 @cs @aw @ec @i4 y b @t4 @rc @nw @ss @lv3 ß][places modifier keys on the home row]], when his alternate shift keys are invoked he [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/vou.kbd::XX J Z X - @Ü Ö P D W M K XX][blocks the standard shift keys]], level3 [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/vou.kbd::(deflayer level3][provides a variety of punctuation]], level4 has [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/vou.kbd::(deflayer level4][navigation keys]], his special layer provides [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/vou.kbd::(deflayer special][modified navigation keys and vim buffer navigation keys]]. his double-tapping =CAPS LOCK= in QWERTZ layer [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/vou.kbd::@q3 a s d f g h j k l ö ä #][provides an actual Caps Lock]], and his right Alt operates as [[file:~/Source/kmonad-contrib/keymaps/MaxGyver83/vou.kbd::ctlc (tap-hold-next-release 500 ralt rctl)][compose when tapped and right Control when held]].
+
+Rougemoot maps his Right Command Key (⌘) to backspace.  His  =capslock= is =esc= if pressed along and =fn= when held, which he uses as Hyper in SKHD with Yabai. Tab is =meh= (=C-A-S=), when held for the same reason. Which he uses for tab, channel and server navigation in Firefox, Discord and Messages.  =a= and =;= are tap-hold-mapped ash =shift=.  There is more about his [[file:~/Source/kmonad-contrib/keymaps/Rougemoot/README.md::The a-bit-less-simple stuff (layers)][40% keyboard emulation]], where =raise= (=c=) and =lower= (=m=) are used for accented letters.  These work shifted as well.  The =space= shifts into arrow key mode.
+
+Adgai19's layout is the first time I've seen the [[https://workmanlayout.org/][Workman layout]] and points out difficulties with the Colemak layout.  To a lesser extent it points out a couple things that could be better when typing English on Dvorak, from the key usage diagrams moving =i= to the home keys certainly makes sense, and is something I have often thought was off. Swap =i= and =u= or something similar.  It also looks like some other optimizations could be made as well.  Unfortunately this will require using KMonad, a similar program, or a custom layout everywhere, which could be difficult. 
+
+David Janssen's atreus has some interesting tricks for [[file:~/Source/kmonad-contrib/keymaps/david-janssen/atreus.kbd::gn (layer-toggle game-num)][Game Mode]], which is something I thought about. Buttons functioning differently when held could be a problem.  He also has some one-button compound operators like Haskell's bind.
+
+The JNSF layouts are uninteresting.
+
+Herschenglime's [[file:~/Source/kmonad-contrib/keymaps/herschenglime/autoshift.kbd::(defalias][autoshift]] layout is interesting, where a slight hold on a key automatically capitalizes it rather than having to use a shift key.
+
+iTzHard has a held =f= place the arrow keys under the right hand.
+
+Iaeerfung borrows Dave Janssen's one-button bind and related Haskell symbols, other than that I don't get a lot of what is going on, appears to be a hybrid Russian/Chinese layout for the Razer BlackWindow Ultimate.
+
+[[file:~/Source/kmonad-contrib/keymaps/salahdin-ahmed/KMonad.kbd::(defcfg][Ahmed Salahdin]] uses a double-tab of =Right Alt= to enter arrow key mode. This is done  via =multi-tap=. and adds a "visual-mode" toggle after which the "arrow" keys are shifted for selection extension in most GUIs.  Holding space activates numbers on the home row. Swaps =backspace= and =Caps Lock=.
+
+The Slot's X220 Colemak layout has [[file:~/Source/kmonad-contrib/keymaps/slotThe/x220-iso-us-colemak-dh-z.kbd::;; My Spin of Colemak on an X220][nice commenting]] which I should borrow.
+
+Stevep99 implements DreymaR's [[file:~/Source/kmonad-contrib/keymaps/stevep99/colemak-dh-extend-ansi.kbd::(deflayer extend][basic extend]] functionality.  Navigation, media, function keys, etc. on one layer.

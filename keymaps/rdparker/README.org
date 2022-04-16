@@ -1,5 +1,7 @@
+
 * Installation
 
+** Windows
 In PowerShell run
 
 #+begin_src powershell
@@ -7,3 +9,12 @@ In PowerShell run
 #+end_src
 
 to create a shortcut that starts KMonad in a hidden window with the =hawkbit.kbd= configuration.  Then manually copy it to =%ProgramData%\Microsoft\Windows\Start Menu\Programs\StartUp= and launch it.  The advantage of placing it in the =StartUp= directory is that it will launch when you log in.
+
+** macOS
+Copy =local.kmonad.macbook.plist= into =/Library/LaunchDaemons= and run
+
+#+begin_src shell
+sudo launchctl load /Library/LaunchDaemons/local.kmonad.macbook.plist
+#+end_src
+
+*** TODO Create a script that writes the plist

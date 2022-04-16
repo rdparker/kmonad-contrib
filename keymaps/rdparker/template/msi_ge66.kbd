@@ -1,11 +1,12 @@
 #| --------------------------------------------------------------------------
 
-                     KMonad: MSI GE66 Raider Keyboard
+              KMonad: MSI GE66 Raider SteelSeries Keyboard Template
 
   This file contains the `defsrc` configuration for an MSI GE66
-  Raider keyboard. Copy out the 'defsrc' layer to start your own
-  keyboard configuration. Copy out the `deflayer` template to
-  easily start a new layer with matching `transparent` buttons.
+  Raider SteelSeries keyboard. Copy out the 'defsrc' layer to
+  start your own keyboard configuration. Copy out the `deflayer`
+  template to easily start a new layer with matching
+  `transparent` buttons.
 
 (deflayer name
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
