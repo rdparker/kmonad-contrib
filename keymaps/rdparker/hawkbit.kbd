@@ -16,7 +16,12 @@
   _    _    _              _              _    _    _    _    _    _    _   
 )
 
-  -------------------------------------------------------------------------- |#
+-------------------------------------------------------------------------- |#
+
+;; Set the input and output sinks.
+;;
+;; Running "system_profiler SPUSBDataType" gives the device name for
+;; the keyboard as "Apple Internal Keyboard / Trackpad".
 
 (defcfg
   ;; ** For Linux **
@@ -30,16 +35,99 @@
   ;; ** For MacOS **
   ;; input  (iokit-name "my-keyboard-product-string")
   ;; output (kext)
-
-  fallthrough true
-  allow-cmd false
 )
+
+;;; Aliases
+
+;; All things tap related
+;;
+;; The `tap-next' button takes 2 buttons, one for tapping, one for
+;; holding.  If it is pressed and released before another button is
+;; pressed, the 'tapping' button will be tapped.  If it is still held
+;; down when the next button is pressed, the 'holding' button will be
+;; pressed, then the next button's event will be generated and after
+;; the next button is released, the 'holding' button will be released.
+
+;; The `tap-hold' button takes a timeout and the same 2 buttons as
+;; `tap-next'.  If the 'tap-hold' is released before the timeout, then
+;; the 'tapping' button will be tapped and any next button handled
+;; after that.  If it is released after the timeout the 'holding'
+;; button will be pressed.  No processing of the next button will
+;; happen until the 'tap-hold' is released, or the timeout has
+;; expired, but it will be processed immediately thereafter.
+;;
+;; Using `tap-hold-next' is a combination of the two.  It behaves like
+;; `tap-next' but is also held after a period of time.  The real
+;; utility is when you press the 'tap-hold-next' and decide it was a
+;; mistake you can hold it until the timeout, release it without
+;; touching another button and get no errant output.  With 'tap-next'
+;; the 'tapping' button would be generated.
+;;
+;; The 'tap-next-release' button makes its decision based upon the
+;; next button released that was *not* pressed before us.  In other
+;; words if 'a' is pressed before 'tap-next-release' and is released
+;; before 'tap-next-release' it will be treated as tapped and
+;; 'tap-next-release' will still make its decision based upon the next
+;; released button.
+;;
+;; `tap-hold-next-release' is like 'tap-next-release' but with a
+;; timeout and will also jump into holding mode when the timeout is
+;; hit, like 'tap-hold'.
+;;
+;; For home row mods, you want 'tap-hold-next-release', cf.
+;; https://precondition.github.io/home-row-mods#using-home-row-mods-with-kmonad.
 
 (defalias
-  ec (tap-hold-next-release 500 esc lctl)
-  rc (tap-hold-next-release 500 ret rctl)
+  esc (tap-hold-next-release 500 esc lctl)
+  rec (tap-hold-next-release 500 ret rctl)
 )
 
+;; The least to most common modifiers are:
+;;
+;;   GUI  < Alt    < Control < Shift - On Windows, Linux and BSDs
+;;   Ctrl < Option < Command < Shift - On macOS
+;;
+;; The GUI key is also called the Windows key.
+;;
+;; In Emacs GUI/Win/Command are used as Super, but they are also used
+;; by the graphical environment to manage windows, access menu items
+;; and trigger application commands.
+;;
+;; |         | GUI/Win/Command       | Control    | Alt/Option                |
+;; |---------+-----------------------+------------+---------------------------|
+;; | Emacs   | Super                 | Control    | Meta                      |
+;; | Windows | Windows Shortcuts     | Copy/Paste | Menu Access & Modifier    |
+;; | macOS   | Copy/Paste, Shortcuts | Modifier   | Extended Chars & Modifier |
+;;
+;; If you work on multiple platforms, it is not uncommon to use
+;; Command as Meta in Emacs because it is easier to reach with your
+;; thumb than Option, and is in the same physical position as Alt on a
+;; PC which is used as Meta.  Having them in the same position also
+;; reduces typing confusion.
+;;
+;;     Mac Layout                PC Layout
+;;    			     			     
+;;     Shift		         Shift		     
+;;     Ctrl   Option Command     Ctrl   GUI    Alt	     
+;;
+
+(defalias
+    am (tap-hold-next-release 200 a lmet)
+    oa (tap-hold-next-release 200 o lalt)
+    ec (tap-hold-next-release 200 e lctl)
+    us (tap-hold-next-release 200 u lsft)
+
+    hs (tap-hold-next-release 200 h rsft)
+    tc (tap-hold-next-release 200 t rctl)
+    na (tap-hold-next-release 200 n lalt)
+    sm (tap-hold-next-release 200 s rmet)
+    )
+
+;;; Layers
+
+;; First up is the source (base) layer; this is used to set the default
+;; keys that will be overwritten later.  It is `not' a layer that will
+;; be used in the actual layout.
 (defsrc
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc home
@@ -49,11 +137,13 @@
   lctl lmet lalt           spc            ralt nubs      rctl left down rght
 )
 
-(deflayer default
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _   
-  @ec  _    _    _    _    _    _    _    _    _    _    _    @rc       _
-  _    _    _    _    _    _    _    _    _    _    _    _         _    _      
-  _    _    _              _              _    rmet      _    _    _    _   
+;; Dvorak layer
+;; Since this is the first layer, it's the layout KMonad starts in.
+(deflayer dvorak
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  grv  1    2    3    4    5    6    7    8    9    0    [    ]    bspc home
+  tab  '    ,    .    p    y    f    g    c    r    l    /    =    \    pgup
+  @esc @am  @oa  @ec  @us  i    d    @hs  @tc  @na  @sm  -    @rec      pgdn
+  lsft ;    q    j    k    x    b    m    w    v    z    rsft      up   end    
+  lctl lmet lalt           spc            ralt rmet      rctl left down rght
 )
