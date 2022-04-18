@@ -1,16 +1,21 @@
 #| --------------------------------------------------------------------------
 
-   KMonad: My MacBook Pro layout
+   KMonad: My old US-Layout IBM Model-M attached to a Macbook
 
-  KMonad configuration for a 2019 MacBook Pro with TouchBar.
+  This file contains the `defsrc` configuration for a standard US
+  IBM Model-M keyboard. The only difference between it and the US
+  ansi 100% template, is the lack of meta keys.  The original
+  Model-M had none. Copy out the 'defsrc' layer to start your own
+  keyboard configuration. Copy out the `deflayer` template to
+  easily start a new layer with matching `transparent` buttons.
 
-(deflayer function
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _              _              _    _    _    _    _
+(deflayer name
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _                    _          _    _    _    _
+  _         _              _              _         _                    _    _    _     _    _   
 )
 
   -------------------------------------------------------------------------- |#
@@ -18,10 +23,19 @@
 ;; Set the input and output sinks.
 ;;
 ;; Running "system_profiler SPUSBDataType" gives the device name for
-;; the keyboard as "Apple Internal Keyboard / Trackpad".
+;; the keyboard as "USBPS2" since it is connected via a PS/2-to-USB adapter.
 
 (defcfg
-  input (iokit-name "Apple Internal Keyboard / Trackpad")
+  ;; ** For Linux **
+  ;; input  (device-file "/dev/input/by-id/usb-Matias_Ergo_Pro_Keyboard-event-kbd") ;; Change this line for your device
+  ;; output (uinput-sink "KMonad output")
+
+  ;; ** For Windows **
+  ;; input  (low-level-hook)
+  ;; output (send-event-sink)
+
+  ;; ** For MacOS **
+  input  (iokit-name "USBPS2")
   output (kext)
 )
 
@@ -155,21 +169,24 @@
 ;; keys that will be overwritten later.  It is `not' a layer that will
 ;; be used in the actual layout.
 (defsrc
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-  fn   lctl lalt lmet           spc            rmet ralt left down rght
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
+  lctl      lalt           spc            ralt      rctl                 left down rght  kp0  kp.
 )
 
 ;; Dvorak layer
 ;; Since this is the first layer, it's the layout KMonad starts in.
+;;
+;;
+
 (deflayer dvorak
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    [    ]    bspc
-  tab  '    ,    .    p    y    f    g    c    r    l    /    =    \
-  @esc @a/s @o/m @e/s @u/c i    d    @h/c @t/s @n/m @s/s -    @rec
-  lsft ;    q    j    k    x    b    m    w    v    z    rsft up
-  fn   lctl lalt lmet           spc            rmet ralt left down rght
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    [    ]    bspc  ins  home pgup  nlck kp/  kp*  kp-
+  tab  '    ,    .    p    y    f    g    c    r    l    /    =    \     del  end  pgdn  kp7  kp8  kp9  kp+
+  @esc @a/s @o/m @e/s @u/c i    d    @h/c @t/s @n/m @s/s -    @rec                       kp4  kp5  kp6
+  lsft ;    q    j    k    x    b    m    w    v    z    rsft                 up         kp1  kp2  kp3  kprt
+  lalt      lmet           spc            rmet      ralt                 left down rght  kp0  kp.
 )

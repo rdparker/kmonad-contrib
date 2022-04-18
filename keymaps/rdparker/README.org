@@ -17,4 +17,6 @@ Copy =local.kmonad.macbook.plist= into =/Library/LaunchDaemons= and run
 sudo launchctl load /Library/LaunchDaemons/local.kmonad.macbook.plist
 #+end_src
 
+Repeat for =local.kmonad.model-m.plist=.
+
 *** TODO Create a script that writes the plist
